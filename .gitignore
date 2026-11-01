@@ -17,3 +17,7 @@ pnpm-debug.log*
 # needs it - so it is the one env file that is tracked.
 !.env.production
 !.env.example
+.pnpm-store/
+node_modules/
+dist/
+.env

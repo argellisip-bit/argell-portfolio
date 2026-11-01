@@ -60,10 +60,10 @@ export default function ContactGrid() {
       <header className="pgrid__head">
         <span className="pgrid__eyebrow">FAQs / Contact</span>
         <h1 className="pgrid__title" id="contact-title">
-          Your contact headline goes here.
+          Let’s Make Your Workday Easier.
         </h1>
         <p className="pgrid__lede">
-          PLACEHOLDER - tell me what to put here: one or two lines inviting people to write and saying what they get back.
+          Tell me what you need support with, and I’ll get back to you with the best way I can help.
         </p>
       </header>
 
@@ -75,7 +75,7 @@ export default function ContactGrid() {
             <h2 className="cgrid__aside-title" id="contact-faq">
               Quick answers.
               <br />
-              <span>Still have one? Write below.</span>
+              <span>Still have a question? Send me a message.</span>
             </h2>
           </div>
 
@@ -169,12 +169,12 @@ export default function ContactGrid() {
               </label>
 
               <label className="cgrid__field cgrid__field--grow">
-                <span className="cgrid__label">Tell me more about your business</span>
+                <span className="cgrid__label">HOW CAN I SUPPORT YOU?</span>
                 <textarea
                   name="message"
                   required
                   maxLength={MAX_MESSAGE}
-                  placeholder="What do you need help with? What are you working with today?"
+                  placeholder="Tell me what you need help with, your current challenges, or the kind of support you’re looking for."
                 />
               </label>
 
@@ -197,7 +197,7 @@ export default function ContactGrid() {
                     {status.note}
                   </span>
                 ) : (
-                  <span className="cgrid__hint">Short reassurance line, e.g. your reply time.</span>
+                  <span className="cgrid__hint">I typically reply within 1 business day.</span>
                 )}
               </div>
             </form>

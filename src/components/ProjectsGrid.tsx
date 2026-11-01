@@ -1,11 +1,11 @@
 import { Fragment, useCallback, useEffect, useRef, useState, type ComponentType, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
+import { annualReportSamples } from '@/data/annual-report'
 import { ArrowUpRight, X, Ticket, Robot, FlowArrow, CursorClick } from '@/components/slab'
-import { FlowIcon, PlanIcon, GlobeIcon, SparkIcon, DeviceIcon } from './ProjectIcons'
-import { AutomationsPanel, PlanPanel, TicketingPanel, FrameworkPanel, WorkflowPanel, BarrelPanel, AIWindow, AppsWindow } from './ProjectPanels'
-import { gymFunnel, bookingFunnel, websiteFunnel, type Funnel } from '@/data/funnels'
+import { FlowIcon, PlanIcon, GlobeIcon, DeviceIcon } from './ProjectIcons'
+import { AutomationsPanel, PlanPanel, TicketingPanel, FrameworkPanel, WorkflowPanel, SystemsWorkflowsPanel, AppsWindow } from './ProjectPanels'
+import { systemsWorkflowSamples } from '@/data/systems-workflows'
 import { mobileApps } from '@/data/projects'
-import { aiStack, type StackNode } from '@/data/ai-stack'
 import { useIsPhone } from '@/hooks/useMediaQuery'
 
 /**
@@ -49,16 +49,9 @@ const GHL = '/icons/gohighlevel.png'
 const CLAUDE_CODE = '/icons/claude-code-logo.png'
 const CODEX = '/icons/ai/codex.svg'
 const HERMES = '/icons/ai/hermes.svg'
-const PLAY = '/icons/ai/googleplay.svg'
-const CHROME = '/icons/ai/googlechrome.svg'
-const EXPO = '/icons/ai/expo.svg'
 
-const WF_SHOTS = ['project-1.jpg', 'project-2.jpg', 'project-3.jpg', 'project-4.jpg'].map(
-  (f) => `/placeholders/${f}`,
-)
+const WF_SHOTS = annualReportSamples.map((sample) => sample.src)
 
-const FUNNEL_SHOTS = [gymFunnel[0], bookingFunnel[0], websiteFunnel[0]].filter(Boolean)
-const thumbSrc = (f: Funnel) => `/${f.dir ?? 'funnels'}/thumbs/${f.file.replace('.html', '.jpeg')}`
 
 const APP_SHOTS = [
   ...mobileApps.map((a) => a.imageSrc).filter((s): s is string => !!s),
@@ -71,13 +64,11 @@ const BUILD_DESC = 'PLACEHOLDER - tell me what to put here: two lines on what th
 /** The three featured builds: each its own card in the stack, each its own
  *  pop-up. */
 const BUILDS: Project[] = [
-  { id: 'ticketing', cat: 'work', index: '03', kicker: 'Placeholder category', title: 'Featured Project One', desc: BUILD_DESC, Icon: () => <Ticket size={20} weight="duotone" />, logos: [GHL], eyebrow: 'Featured build', Section: TicketingPanel, Preview: () => null },
-  { id: 'framework', cat: 'ai', index: '04', kicker: 'Placeholder category', title: 'Featured Project Two', desc: BUILD_DESC, Icon: () => <Robot size={20} weight="duotone" />, logos: [CLAUDE_CODE], eyebrow: 'Featured build', Section: FrameworkPanel, Preview: () => null },
-  { id: 'workflow', cat: 'ai', index: '05', kicker: 'Placeholder category', title: 'Featured Project Three', desc: BUILD_DESC, Icon: () => <FlowArrow size={20} weight="duotone" />, logos: [CLAUDE_CODE, CODEX, HERMES], eyebrow: 'Featured build', Section: WorkflowPanel, Preview: () => null },
+  { id: 'ticketing', cat: 'work', index: '03', title: 'Research & Event Sourcing', desc: 'Researched and evaluated relevant events, organizations, and outreach opportunities based on location, audience, timing, and participation requirements.', Icon: () => <Ticket size={20} weight="duotone" />, logos: ['/icons/research-search.svg'], eyebrow: 'Featured build', Section: TicketingPanel, Preview: () => null },
+  { id: 'framework', cat: 'ai', index: '04', title: 'Client Support & Customer Experience Operations', desc: BUILD_DESC, Icon: () => <Robot size={20} weight="duotone" />, logos: ['/icons/support-headset.svg'], eyebrow: 'Featured build', Section: FrameworkPanel, Preview: () => null },
+  { id: 'workflow', cat: 'ai', index: '05', title: 'Finance Support', desc: BUILD_DESC, Icon: () => <FlowArrow size={20} weight="duotone" />, logos: ['/icons/quickbooks.svg'], eyebrow: 'Featured build', Section: WorkflowPanel, Preview: () => null },
 ]
 
-const leaves = (n: StackNode): StackNode[] => (n.children?.length ? n.children.flatMap(leaves) : [n])
-const AI_LEAVES = leaves(aiStack)
 
 /* ---------- Previews ---------- */
 
@@ -99,16 +90,16 @@ function WorkflowsPreview() {
 function PlanPreview() {
   return (
     <div className="bento__media bento__doc" aria-hidden="true">
-      <span className="bento__doc-eyebrow">Placeholder document</span>
-      <span className="bento__doc-title">Your document title here.</span>
+      <span className="bento__doc-eyebrow">Nonprofit Organization · Ongoing Support</span>
+      <span className="bento__doc-title">Grant &amp; Deadline Management</span>
       <span className="bento__doc-flow">
-        <i>Step</i>
-        <i>Step</i>
-        <i>Step?</i>
-        <i className="is-on">Result</i>
+        <i>Identify Deadline</i>
+        <i>Add to Calendar</i>
+        <i>Send Reminder</i>
+        <i className="is-on">Confirm Completion</i>
       </span>
-      <span className="bento__doc-line" />
-      <span className="bento__doc-line bento__doc-line--short" />
+      <span className="bento__doc-summary">Calendar tracking, reminders, follow-ups, and submission status.</span>
+      <span className="bento__doc-outcome">Improved deadline visibility and follow-through</span>
     </div>
   )
 }
@@ -117,31 +108,10 @@ function PlanPreview() {
 function FunnelsPreview() {
   return (
     <div className="bento__media bento__fan" aria-hidden="true">
-      {FUNNEL_SHOTS.map((f, i) => (
+      {systemsWorkflowSamples.slice(0, 3).map((f, i) => (
         <span key={f.file} className="bento__photo bento__photo--page" style={{ ['--i' as string]: i }}>
-          <img src={thumbSrc(f)} alt="" loading="lazy" decoding="async" />
+          <img src={f.src} alt="" loading="lazy" decoding="async" />
         </span>
-      ))}
-    </div>
-  )
-}
-
-function AIPreview() {
-  const half = Math.ceil(AI_LEAVES.length / 2)
-  const rows = [AI_LEAVES.slice(0, half), AI_LEAVES.slice(half)]
-  return (
-    <div className="bento__media bento__chips" aria-hidden="true">
-      {rows.map((row, r) => (
-        <div key={r} className="bento__chip-row" data-dir={r ? 'right' : 'left'}>
-          <div className="bento__chip-track">
-            {[...row, ...row].map((n, i) => (
-              <span key={`${n.id}-${i}`} className="bento__chip" data-status={n.status}>
-                <n.Icon size={15} weight="duotone" />
-                {n.name}
-              </span>
-            ))}
-          </div>
-        </div>
       ))}
     </div>
   )
@@ -162,11 +132,10 @@ function AppsPreview() {
 }
 
 const PROJECTS: Project[] = [
-  { id: 'workflows', cat: 'work', index: '01', title: 'Project Title', desc: 'PLACEHOLDER - tell me what to put here: what these screens show.', Icon: FlowIcon, logos: [GHL], eyebrow: 'Screenshots', Section: AutomationsPanel, span: 2, Preview: WorkflowsPreview },
-  { id: 'plan', cat: 'work', index: '02', title: 'Sample Document', desc: 'PLACEHOLDER - tell me what to put here: the document this opens.', Icon: PlanIcon, logos: [GHL], eyebrow: 'Sample document', Section: PlanPanel, Preview: PlanPreview },
-  { id: 'funnels', cat: 'sites', index: '06', title: 'Pages and sites', desc: 'PLACEHOLDER - the pages in this reel. Spin the reel.', Icon: GlobeIcon, logos: [GHL], eyebrow: 'Pages and sites', Section: BarrelPanel, Preview: FunnelsPreview },
-  { id: 'ai', cat: 'ai', index: '07', title: 'Your systems title here', desc: 'PLACEHOLDER - tell me what to put here: the systems you run.', Icon: SparkIcon, logos: [CLAUDE_CODE, CODEX, HERMES], eyebrow: 'Your systems', Section: AIWindow, Preview: AIPreview },
-  { id: 'apps', cat: 'apps', index: '08', title: 'Apps and tools', desc: 'PLACEHOLDER - tell me what to put here: the apps and tools you ship.', Icon: DeviceIcon, logos: [PLAY, EXPO, CHROME], eyebrow: 'Your apps', Section: AppsWindow, span: 2, Preview: AppsPreview },
+  { id: 'workflows', cat: 'work', index: '01', title: 'Annual Report Development', desc: 'PLACEHOLDER - tell me what to put here: what these screens show.', Icon: FlowIcon, logos: ['/icons/report-document.svg'], eyebrow: 'Screenshots', Section: AutomationsPanel, span: 2, Preview: WorkflowsPreview },
+  { id: 'plan', cat: 'work', index: '02', title: 'Grant & Deadline Management', desc: 'Organized grant deadlines, reminders, and follow-ups to keep submissions on track.', Icon: PlanIcon, logos: ['/icons/calendar-check.svg'], eyebrow: 'Case study', Section: PlanPanel, Preview: PlanPreview },
+  { id: 'funnels', cat: 'sites', index: '06', title: 'Systems & Workflows', desc: 'Organized recurring tasks, reporting, deadlines, files, and follow-ups into clear, repeatable workflows.', Icon: GlobeIcon, logos: [GHL], eyebrow: 'Pages and sites', Section: SystemsWorkflowsPanel, span: 2, Preview: FunnelsPreview },
+  { id: 'apps', cat: 'apps', index: '08', title: 'Tools in Action', desc: 'PLACEHOLDER - tell me what to put here: the apps and tools you ship.', Icon: DeviceIcon, logos: ['/icons/quickbooks.svg', '/icons/googleworkspace.svg', '/icons/openai.svg'], eyebrow: 'Your apps', Section: AppsWindow, span: 2, Preview: AppsPreview },
 ]
 
 /** The icon tile, or the real marks stacked horizontally in its place. */
@@ -268,13 +237,13 @@ export default function ProjectsGrid() {
 
             <span className="bento__build-plate">
 
-              {b.logos?.length ? <img src={b.logos[0]} alt="" width={22} height={22} /> : <b.Icon />}
+              {b.id === 'workflow' ? b.logos?.map((src) => <img key={src} src={src} alt="" width={22} height={22} />) : b.logos?.length ? <img src={b.logos[0]} alt="" width={22} height={22} /> : <b.Icon />}
 
             </span>
 
             <span className="bento__build-text">
 
-              <span className="bento__kicker">{b.kicker}</span>
+              {b.kicker && <span className="bento__kicker">{b.kicker}</span>}
 
               <span className="bento__build-title">{b.title}</span>
 
@@ -300,9 +269,9 @@ export default function ProjectsGrid() {
       <header className="pgrid__head">
         <span className="pgrid__eyebrow">Projects</span>
         <h1 className="pgrid__title" id="projects-title">
-          Your projects headline goes right here.
+          Consider it done.
         </h1>
-        <p className="pgrid__lede">PLACEHOLDER - tell me what to put here: one line on the work below. Open a card to see it full size.</p>
+        <p className="pgrid__lede">I bring structure to busy workdays, so leaders can focus on what matters most.</p>
       </header>
 
       {phone && (

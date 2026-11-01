@@ -78,7 +78,15 @@
     margin-top: 5px;
     font-size: 14.5px;
     color: var(--muted);
+    width: 100%;
+    text-align: center;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
   }
+  .rail__handle span { white-space: nowrap; }
   /* live visitor count, the same stat the phone shell shows */
   .rail__visits {
     color: var(--muted);

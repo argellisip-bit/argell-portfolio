@@ -1,8 +1,6 @@
-import { useCallback, useEffect, useId, useRef, useState, type FocusEvent } from 'react'
+import { useCallback, useId, useRef, useState, type FocusEvent } from 'react'
 import { PersonArmsSpread, CaretRight, DotsThree } from '@/components/slab'
-import ThemeGlyph from './ThemeGlyph'
 import { A11Y_OPEN_EVENT } from './AccessMenu'
-import { getTheme, toggleTheme, type Theme } from '@/lib/theme'
 import { useDismiss, type DismissReason } from '@/hooks/useDismiss'
 
 /**
@@ -19,17 +17,9 @@ import { useDismiss, type DismissReason } from '@/hooks/useDismiss'
  */
 export default function QuickMenu({ className = '' }: { className?: string }) {
   const [open, setOpen] = useState(false)
-  const [theme, setThemeState] = useState<Theme>(getTheme)
   const rootRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const panelId = useId()
-
-  // The rail or another QuickMenu can switch the theme too.
-  useEffect(() => {
-    const onTheme = (e: Event) => setThemeState((e as CustomEvent<Theme>).detail)
-    window.addEventListener('themechange', onTheme)
-    return () => window.removeEventListener('themechange', onTheme)
-  }, [])
 
   const close = useCallback((reason: DismissReason) => {
     setOpen(false)
@@ -56,24 +46,12 @@ export default function QuickMenu({ className = '' }: { className?: string }) {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-controls={panelId}
-        aria-label="Theme and accessibility"
+        aria-label="Accessibility options"
       >
         <DotsThree size={22} weight="bold" aria-hidden="true" />
       </button>
 
       <div id={panelId} className={`qmenu__panel${open ? ' is-open' : ''}`} inert={!open || undefined}>
-        <button
-          type="button"
-          role="switch"
-          aria-checked={theme === 'dark'}
-          className="qmenu__row"
-          onClick={(e) => setThemeState(toggleTheme(e.currentTarget))}
-        >
-          <ThemeGlyph theme={theme} size={19} />
-          <span className="qmenu__label">Dark theme</span>
-          <span className="qmenu__switch" aria-hidden="true" />
-        </button>
-        <span className="qmenu__sep" aria-hidden="true" />
         <button type="button" className="qmenu__row" aria-haspopup="dialog" onClick={openAccessibility}>
           <PersonArmsSpread size={19} weight="fill" aria-hidden="true" />
           <span className="qmenu__label">Accessibility</span>

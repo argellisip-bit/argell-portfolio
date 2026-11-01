@@ -38,17 +38,14 @@ type Tool = {
 }
 
 export const tools: Tool[] = [
-  { name: 'Claude Code',          iconPath: '/icons/claude-code-logo.png' },
-  { name: 'Codex',                iconPath: '/icons/codex.svg',           color: '#000000' },
-  { name: 'Cursor',               iconPath: '/icons/cursor.svg',          color: '#0F172A' },
-  { name: 'Hermes AI',            iconPath: '/icons/nousresearch.svg',    color: '#18181B' },
-  { name: 'VS Code',              iconPath: '/icons/vscode.svg' },
-  { name: 'GoHighLevel',          iconPath: '/icons/gohighlevel.png' },
-  { name: 'Lightspeed X-Series',  iconPath: '/icons/lightspeed.png' },
   { name: 'Google Workspace',     iconPath: '/icons/googleworkspace.svg' },
-  { name: 'Zendesk',              iconPath: '/icons/zendesk.svg',         color: '#03363D' },
-  { name: 'Intercom',             iconPath: '/icons/intercom.svg',        color: '#1F8DED' },
-  { name: 'Slack',                iconPath: '/icons/slack.svg',           color: '#611F69' },
+  { name: 'Microsoft 365',        iconPath: '/icons/microsoft365.svg' },
+  { name: 'Basecamp',             iconPath: '/icons/basecamp.svg' },
+  { name: 'Canva',                iconPath: '/icons/canva.svg', color: '#00C4CC' },
+  { name: 'QuickBooks',           iconPath: '/icons/quickbooks.svg' },
+  { name: 'Xero',                 iconPath: '/icons/xero.svg' },
+  { name: 'Salesforce',           iconPath: '/icons/salesforce.svg' },
+  { name: 'ChatGPT',              iconPath: '/icons/openai.svg', color: '#10A37F' },
 ]
 
 export default function ToolsMarquee() {

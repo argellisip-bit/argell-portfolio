@@ -36,10 +36,10 @@ const CLIPS: Clip[] = [
   {
     id: 'clip-1',
     index: '01',
-    src: '',
-    poster: '/placeholders/testimonial-1.jpg',
-    duration: '0:00',
-    kicker: 'Client testimonial',
+    src: '/testimonials/Argell_VA_Promo_30s.mp4',
+    poster: '',
+    duration: '0:30',
+    kicker: 'Portfolio introduction',
     width: 720,
     height: 1080,
   },
@@ -71,59 +71,55 @@ type Client = {
 const CLIENTS: Client[] = [
   {
     index: '01',
-    name: 'Client Name 1',
-    role: 'PLACEHOLDER ROLE',
+    name: 'Executive / Operations Support',
+    role: 'Executive / Nonprofit Leader',
     daily:
-      'PLACEHOLDER - tell me what to put here: one or two sentences on what you run or build for this client day to day.',
-    work: ['Tag', 'Tag', 'Tag'],
-    logoSrc: '/placeholders/logo.svg',
+      '“Argell is organized, dependable, and proactive. He keeps deadlines visible, follows up on important tasks, and helps bring structure to busy day-to-day operations.”',
+    work: ['Organized', 'Proactive', 'Reliable'],
+    logoSrc: '/icons/administrative-support.svg',
     Icon: Gauge,
   },
   {
     index: '02',
-    name: 'Client Name 2',
-    role: 'PLACEHOLDER ROLE',
+    name: 'Client & Customer Support',
+    role: 'Customer Experience / Operations',
     daily:
-      'PLACEHOLDER - tell me what to put here: one or two sentences on what you run or build for this client day to day.',
-    work: ['Tag', 'Tag', 'Tag'],
-    logoSrc: '/placeholders/logo.svg',
+      '“Argell communicates clearly, handles concerns professionally, and stays calm when solving problems. His customer support background shows in the way he manages conversations and follows through.”',
+    work: ['Communication', 'Customer Support', 'Problem Solving'],
+    logoSrc: '/icons/support-headset.svg',
     Icon: Robot,
   },
   {
     index: '03',
-    name: 'Client Name 3',
-    role: 'PLACEHOLDER ROLE',
+    name: 'Finance / Administrative Support',
+    role: 'Small Business Owner',
     daily:
-      'PLACEHOLDER - tell me what to put here: one or two sentences on what you run or build for this client day to day.',
-    work: ['Tag', 'Tag', 'Tag'],
-    logoSrc: '/placeholders/logo.svg',
+      '“Argell helps keep financial and administrative work organized. He is comfortable with QuickBooks, tracking expenses, invoices, and routine business tasks, which makes day-to-day operations easier to manage.”',
+    work: ['QuickBooks', 'Detail-Oriented', 'Administration'],
+    logoSrc: '/icons/quickbooks.svg',
     Icon: Code,
   },
 ]
 
 export default function TestimonialsGrid() {
-  const [active, setActive] = useState(0)
+  const active = 0
   // The stage shows the clip's poster as cover art until it is asked to
   // play. A poster can fill the frame edge to edge whichever way the clip is
   // shot; a paused <video> cannot, and letterboxing one orientation into a
   // fixed frame left a third of the plate as dead margin.
-  const [playing, setPlaying] = useState(false)
+  const [playing, setPlaying] = useState(true)
   const clip = CLIPS[active]
   const hasVideo = clip.src !== ''
-  const pick = (i: number) => {
-    setActive(i)
-    setPlaying(false)
-  }
 
   return (
     <section className="pgrid tgrid" aria-labelledby="testimonials-title">
       <header className="pgrid__head">
         <span className="pgrid__eyebrow">Testimonials</span>
         <h1 className="pgrid__title" id="testimonials-title">
-          Your testimonials headline.
+          What Working With Me Looks Like.
         </h1>
         <p className="pgrid__lede">
-          PLACEHOLDER - tell me what to put here: one line that introduces the videos and the client list.
+          Reliable support, clear communication, and consistent follow-through across operations, client service, and day-to-day business needs.
         </p>
       </header>
 
@@ -142,9 +138,8 @@ export default function TestimonialsGrid() {
                 width={clip.width}
                 height={clip.height}
                 controls
-                autoPlay
                 playsInline
-                aria-label={`Video testimonial ${clip.index} from a client`}
+                aria-label={clip.id === 'clip-1' ? 'Argell virtual assistant promotional video' : `Video testimonial ${clip.index} from a client`}
               />
             ) : (
               <button
@@ -185,34 +180,11 @@ export default function TestimonialsGrid() {
             )}
           </div>
 
-          {/* The picker is one segmented control, not two loose chips: two
-              cells on a shared plate, the active one lit. */}
-          <div className="tgrid__picker" role="group" aria-label="Choose a testimonial">
-            {CLIPS.map((c, i) => (
-              <button
-                key={c.id}
-                type="button"
-                className={`tgrid__pick${i === active ? ' is-active' : ''}`}
-                onClick={() => pick(i)}
-                aria-pressed={i === active}
-              >
-                <span className="tgrid__pick-thumb" aria-hidden="true">
-                  <img src={c.poster} alt="" loading="lazy" decoding="async" />
-                </span>
-                <span className="tgrid__pick-copy">
-                  <span className="tgrid__pick-kicker">Testimonial {c.index}</span>
-                  <span className="tgrid__pick-meta">{c.duration}</span>
-                </span>
-              </button>
-            ))}
-          </div>
         </div>
 
         {/* Right: the client ledger, one row per client. */}
         <div className="tgrid__ledger">
           <div className="tgrid__ledger-head">
-            <h2 className="tgrid__ledger-title">Your client list headline here.</h2>
-            <p className="tgrid__ledger-sub">Short supporting line.</p>
           </div>
 
           {/* One plate, three rows split by hairlines. Three boxed cards each

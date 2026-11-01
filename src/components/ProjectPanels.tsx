@@ -2,6 +2,7 @@ import { useEffect, useState, type ReactNode } from 'react'
 import { Ticket, Robot, FlowArrow, type Icon } from '@/components/slab'
 import { lazy, Suspense } from 'react'
 import WorkflowSamples from './WorkflowSamples'
+import WorkflowCarousel from './WorkflowCarousel'
 import AIStackGrid from './AIStackGrid'
 import { AppsSection } from './Projects'
 import { useFunnelModal } from './FunnelModal'
@@ -20,6 +21,14 @@ export function AutomationsPanel() {
   return (
     <div className="ppanel ppanel--strip">
       <WorkflowSamples />
+    </div>
+  )
+}
+
+export function SystemsWorkflowsPanel() {
+  return (
+    <div className="ppanel ppanel--strip">
+      <WorkflowCarousel />
     </div>
   )
 }
@@ -68,7 +77,7 @@ export function AIWindow() {
 }
 export function AppsWindow() {
   return (
-    <SectionWindow label="Your apps">
+    <SectionWindow label="Tools In Action">
       <AppsSection />
     </SectionWindow>
   )
@@ -92,9 +101,9 @@ export function PlanPanel() {
 type Build = { id: string; label: string; src: string; path: string; Icon: Icon }
 
 const BUILDS: Build[] = [
-  { id: 'ticketing', label: 'Featured Project One', src: '/placeholders/sample-plan.html?doc=1', path: '/featured-one', Icon: Ticket },
-  { id: 'framework', label: 'Featured Project Two', src: '/placeholders/sample-plan.html?doc=2', path: '/featured-two', Icon: Robot },
-  { id: 'workflow', label: 'Featured Project Three', src: '/placeholders/sample-plan.html?doc=3', path: '/featured-three', Icon: FlowArrow },
+  { id: 'ticketing', label: 'Media Research & Coverage Tracking', src: '/media-research.html', path: '/media-research', Icon: Ticket },
+  { id: 'framework', label: 'CUSTOMER EXPERIENCE · BPO OPERATIONS', src: '/client-support.html', path: '/client-support', Icon: Robot },
+  { id: 'workflow', label: 'QuickBooks & Financial Operations Support', src: '/finance-support.html', path: '/finance-support', Icon: FlowArrow },
 ]
 
 /** One build, framed, open on arrival. */

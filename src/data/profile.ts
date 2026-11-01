@@ -46,13 +46,13 @@ export type Profile = {
 }
 
 export const profile: Profile = {
-  name: 'Your Name',
-  firstName: 'Your Name',
-  handle: '@yourhandle',
-  role: 'PLACEHOLDER - your title',
-  avatarSrc: '/avatar.svg',
+  name: 'Argell Nicolo Isip',
+  firstName: 'Argell',
+  handle: 'Executive Virtual Assistant · Operations · Client Support',
+  role: 'Executive Virtual Assistant · Operations · Client Support',
+  avatarSrc: '/ArgellPNG.png',
   verifiedLabel: 'PLACEHOLDER - what the tick means (e.g. a certification)',
-  email: 'you@example.com',
+  email: 'argell.isip@gmail.com',
   location: 'PLACEHOLDER - your city or timezone',
   // Pick any icon from https://phosphoricons.com and import it above.
   stats: [
@@ -62,15 +62,15 @@ export const profile: Profile = {
   ],
   // The intro types this line, then flies it into the Home headline.
   // Keep it short: two halves, 5-8 words total.
-  displayName: { line1: 'Your headline here.', line2: 'Keep it short.' },
+  displayName: { line1: 'Behind Every Productive Leader', line2: 'Is Reliable Support.' },
   hero: {
-    body: 'PLACEHOLDER - one line on what you do and who you do it for.',
+    body: 'Executive Virtual Assistant providing dependable administrative, operations, and client support for growing businesses.',
     portraitSrc: '/avatar.svg',
     portraitAlt: 'Portrait placeholder',
   },
   socials: [
-    { label: 'Facebook profile', href: '#', iconPath: '/icons/facebook.svg' },
-    { label: 'LinkedIn profile', href: '#', iconPath: '/icons/linkedin.svg' },
-    { label: 'Discord profile', href: '#', iconPath: '/icons/discord.svg' },
+    { label: 'Gmail', href: 'mailto:argell.isip@gmail.com', iconPath: '/icons/gmail.svg' },
+    { label: 'WhatsApp QR code', href: '/ArgellWhatsappQRcode.jpg', iconPath: '/icons/whatsapp.svg' },
+    { label: 'LinkedIn profile', href: 'https://www.linkedin.com/in/argell-nicolo-isip-6771b7239', iconPath: '/icons/linkedin.svg' },
   ],
 }

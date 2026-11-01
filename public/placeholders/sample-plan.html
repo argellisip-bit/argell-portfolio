@@ -57,13 +57,25 @@
     border-radius: var(--radius); padding: 14px 16px; color: var(--muted); font-size: 15px;
   }
   .hint strong { color: var(--ink); }
-  .flow { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 4px; }
-  .flow span {
+  .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 16px 0 4px; }
+  .flow .flow-step {
+    display: flex; align-items: center; gap: 9px; flex: 1 1 140px;
     border: 1px solid var(--line); background: var(--paper);
-    border-radius: 10px; padding: 8px 12px; font-size: 14px; font-weight: 500;
+    border-radius: 10px; padding: 9px 10px; font-size: 12px; font-weight: 600;
+    white-space: nowrap;
   }
-  .flow span.on { border-color: var(--accent); color: var(--accent); }
+  .flow-icon { display: grid; place-items: center; width: 32px; height: 32px; flex-shrink: 0; border-radius: 50%; }
+  .flow-icon svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .flow-icon--search { background: #dbeafe; color: #2563a6; }
+  .flow-icon--calendar { background: #d3f1eb; color: #008b80; }
+  .flow-icon--mail { background: #ffedc2; color: #f59a00; }
+  .flow-icon--check { background: #ffddd3; color: #ff5722; }
   .flow em { align-self: center; color: var(--muted); font-style: normal; }
+  @media (max-width: 650px) {
+    .flow { flex-direction: column; align-items: stretch; }
+    .flow .flow-step { flex: none; }
+    .flow em { transform: rotate(90deg); }
+  }
   ul.list { padding-left: 20px; margin: 8px 0 0; color: var(--muted); }
   ul.list li { margin: 4px 0; }
   footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
@@ -72,43 +84,39 @@
 </head>
 <body>
   <main class="doc">
-    <span class="tag">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 1.5h5.5L13 5v9.5H4z"/><path d="M9 1.5V5h4"/></svg>
-      <span id="doc-kind">Placeholder sample document</span>
-    </span>
-    <h1 id="doc-title">Your document title goes here.</h1>
-    <p class="lede">PLACEHOLDER - tell me what to put here: a one-line summary of this plan or case study, who it was for, and the result.</p>
+    <h1 id="doc-title">Grant &amp; Deadline Management</h1>
+    <p class="lede">Organized grant deadlines, calendar reminders, and follow-up workflows to keep time-sensitive submissions visible and on track.</p>
 
     <div class="meta">
-      <div><span>Client</span><b>Client Name</b></div>
-      <div><span>Timeline</span><b>0 weeks</b></div>
-      <div><span>Outcome</span><b>Result metric</b></div>
+      <div><span>Client</span><b>Nonprofit Organization</b></div>
+      <div><span>Timeline</span><b>Ongoing Support</b></div>
+      <div><span>Outcome</span><b>Improved deadline visibility and follow-through</b></div>
     </div>
 
     <h2><i>01</i>The problem</h2>
-    <div class="hint"><strong>PLACEHOLDER - tell me what to put here:</strong> what was broken or missing before you started, in two or three sentences.</div>
+    <div class="hint">Grant deadlines and related follow-ups were spread across calendars, emails, and internal communication, making it important to keep due dates visible and ensure nothing was overlooked.</div>
 
     <h2><i>02</i>The plan</h2>
-    <p class="hint"><strong>PLACEHOLDER - tell me what to put here:</strong> the steps you mapped out before building anything.</p>
-    <div class="flow" aria-label="Example flow">
-      <span>Step one</span><em>&rarr;</em>
-      <span>Step two</span><em>&rarr;</em>
-      <span>Decision?</span><em>&rarr;</em>
-      <span class="on">Result</span>
+    <p class="hint">Create a simple deadline-management workflow that centralized due dates, calendar reminders, follow-ups, and completion status.</p>
+    <div class="flow" aria-label="Deadline management workflow">
+      <div class="flow-step"><span class="flow-icon flow-icon--search" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg></span>Identify Deadline</div><em aria-hidden="true">&rarr;</em>
+      <div class="flow-step"><span class="flow-icon flow-icon--calendar" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="1"/><path d="M8 3v4m8-4v4M4 10h16m-12 4h1m3 0h1m3 0h1m-9 3h1m3 0h1m3 0h1"/></svg></span>Add to Calendar</div><em aria-hidden="true">&rarr;</em>
+      <div class="flow-step"><span class="flow-icon flow-icon--mail" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 6 9 7 9-7"/></svg></span>Send Reminder</div><em aria-hidden="true">&rarr;</em>
+      <div class="flow-step"><span class="flow-icon flow-icon--check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" stroke-width="3"/></svg></span>Confirm Completion</div>
     </div>
 
     <h2><i>03</i>What was built</h2>
-    <div class="hint"><strong>PLACEHOLDER - tell me what to put here:</strong> the pieces you delivered.</div>
+    <div class="hint">A practical deadline-management system that combined calendar tracking, reminders, follow-up communication, and completion monitoring.</div>
     <ul class="list">
-      <li>Deliverable one</li>
-      <li>Deliverable two</li>
-      <li>Deliverable three</li>
+      <li>Grant deadline calendar entries</li>
+      <li>Reminder and follow-up messages</li>
+      <li>Submission status tracking</li>
     </ul>
 
     <h2><i>04</i>Results</h2>
-    <div class="hint"><strong>PLACEHOLDER - tell me what to put here:</strong> the numbers or the change the client saw afterwards.</div>
+    <div class="hint">Improved visibility around upcoming deadlines, made follow-ups more consistent, and helped reduce the risk of time-sensitive grant tasks being missed or overlooked.</div>
 
-    <footer>This is a placeholder page shipped with the template. Replace public/placeholders/sample-plan.html with your own document.</footer>
+    <footer>Grant &amp; Deadline Management</footer>
   </main>
   <script>
     // ?doc=N labels the page for the featured-project panels that reuse it.
@@ -120,6 +128,12 @@
       var title = document.getElementById('doc-title');
       if (kind) kind.textContent = 'Placeholder - ' + names[n];
       if (title) title.textContent = names[n] + ': your page goes here.';
+      if (n === '1') {
+        if (title) title.textContent = 'Media Research & Coverage Tracking';
+        document.title = 'Media Research & Coverage Tracking';
+        var summary = document.querySelector('.lede');
+        if (summary) summary.textContent = 'Researched public web and social media coverage, identified relevant organization mentions, verified source details, and organized links for inclusion in an annual impact report.';
+      }
     })();
   </script>
 </body>

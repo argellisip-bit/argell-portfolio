@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { X } from '@/components/slab'
+import { annualReportSamples } from '@/data/annual-report'
 
 /**
  * WorkflowSamples
@@ -19,19 +20,13 @@ import { X } from '@/components/slab'
  * the trigger on close - the same pattern as the other in-page previews.
  */
 
-type Sample = { file: string; label: string }
+type Sample = (typeof annualReportSamples)[number]
 
-const SAMPLES: Sample[] = [
-  { file: 'project-1.jpg', label: 'Project Screenshot 1' },
-  { file: 'project-2.jpg', label: 'Project Screenshot 2' },
-  { file: 'project-3.jpg', label: 'Project Screenshot 3' },
-  { file: 'project-4.jpg', label: 'Project Screenshot 4' },
-]
 
-const srcOf = (s: Sample) => `/placeholders/${encodeURIComponent(s.file)}`
+const srcOf = (s: Sample) => s.src
 
-export default function WorkflowSamples() {
-  const doubled = useMemo(() => [...SAMPLES, ...SAMPLES], [])
+export default function WorkflowSamples({ samples = annualReportSamples, caption = 'Annual Report Development — select an image to view it full size.' }: { samples?: Sample[]; caption?: string }) {
+  const doubled = useMemo(() => [...samples, ...samples], [samples])
 
   const [active, setActive] = useState<Sample | null>(null)
   const lastTriggerRef = useRef<HTMLElement | null>(null)
@@ -50,13 +45,13 @@ export default function WorkflowSamples() {
   useEffect(() => {
     if (!active) return
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') close()
+      if (e.key === 'Escape') { e.stopImmediatePropagation(); close() }
     }
-    document.addEventListener('keydown', onKey)
+    document.addEventListener('keydown', onKey, true)
     document.body.style.overflow = 'hidden'
     requestAnimationFrame(() => closeRef.current?.focus())
     return () => {
-      document.removeEventListener('keydown', onKey)
+      document.removeEventListener('keydown', onKey, true)
       document.body.style.overflow = ''
     }
   }, [active, close])
@@ -64,13 +59,13 @@ export default function WorkflowSamples() {
   return (
     <section className="wfs" id="workflow-samples" aria-labelledby="wfs-heading" data-reveal>
       <p className="wfs__caption" id="wfs-heading">
-        PLACEHOLDER - tell me what to put here: one line on what these screenshots show.
+        {caption}
       </p>
 
       <div className="wfs__strip">
         <div className="wfs__track">
           {doubled.map((s, i) => {
-            const clone = i >= SAMPLES.length
+            const clone = i >= samples.length
             return (
               <button
                 key={`${s.file}-${i}`}

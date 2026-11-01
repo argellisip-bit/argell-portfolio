@@ -11,24 +11,55 @@ type Extension = {
   imageSrc: string
   imageAlt: string
   Icon: Icon
+  badge?: string
+  tagline?: string
+  tags?: string[]
+  imageKind?: 'logo'
 }
 
 const EXTENSIONS: Extension[] = [
   {
-    name: 'Extension Name One',
-    desc: 'PLACEHOLDER - tell me what to put here: what the extension does and who uses it.',
-    imageSrc: '/placeholders/extension-1.jpg',
-    imageAlt: 'Extension one popup placeholder',
+    name: 'ChatGPT',
+    desc: 'Used to support research, drafting, document review, information organization, brainstorming, and administrative workflows.',
+    imageSrc: '/ai-productivity-workspace.svg',
+    imageAlt: 'Sample research and drafting workspace with fictional content',
+    badge: 'AI PRODUCTIVITY',
     Icon: Key,
   },
   {
-    name: 'Extension Name Two',
-    desc: 'PLACEHOLDER - tell me what to put here: what the extension does and who uses it.',
-    imageSrc: '/placeholders/extension-2.jpg',
-    imageAlt: 'Extension two popup placeholder',
+    name: 'Canva',
+    desc: 'Used to prepare reports, presentation materials, visual content, and polished client-facing documents.',
+    imageSrc: '/annual-report/Syncmed%20Cover.jpg',
+    imageAlt: 'Syncmed report cover design',
+    badge: 'CONTENT & DESIGN',
     Icon: Browser,
   },
+  {
+    name: 'Claude',
+    badge: 'AI PRODUCTIVITY',
+    tagline: 'Research, drafting, analysis, and workflow support.',
+    desc: 'Used for research, content drafting, document analysis, brainstorming, summarization, and structured problem-solving across administrative and project work.',
+    tags: ['RESEARCH', 'DRAFTING', 'ANALYSIS'],
+    imageSrc: '/icons/ai/claude-color.svg',
+    imageAlt: 'Claude logo',
+    imageKind: 'logo',
+    Icon: Key,
+  },
+  {
+    name: 'Gemini',
+    badge: 'AI PRODUCTIVITY',
+    tagline: 'Research, ideation, and information support.',
+    desc: 'Used for research assistance, brainstorming, summarization, and exploring ideas across administrative and project-based work.',
+    tags: ['RESEARCH', 'IDEATION', 'SUMMARIZATION'],
+    imageSrc: '/icons/gemini.svg',
+    imageAlt: 'Gemini logo',
+    imageKind: 'logo',
+    Icon: Key,
+  },
 ]
+
+const aiToolOrder = ['ChatGPT', 'Claude', 'Gemini', 'Canva']
+EXTENSIONS.sort((a, b) => aiToolOrder.indexOf(a.name) - aiToolOrder.indexOf(b.name))
 
 /* ── Extension card ─────────────────────────────────────────────
    Vertical card: a faux browser window on top (chrome bar + equal-height
@@ -52,7 +83,7 @@ function ExtensionCard({ ext }: { ext: Extension }) {
             chrome-extension
           </span>
         </div>
-        <div className="ext-card__stage">
+        <div className={`ext-card__stage${ext.imageKind === 'logo' ? ' ext-card__stage--logo' : ''}`}>
           <img
             className="ext-card__img"
             src={ext.imageSrc}
@@ -65,10 +96,14 @@ function ExtensionCard({ ext }: { ext: Extension }) {
       <div className="ext-card__body">
         <span className="ext-card__badge">
           <ExtIcon size={14} weight="bold" aria-hidden="true" />
-          Chrome Extension
+          {ext.badge ?? 'Chrome Extension'}
         </span>
         <h4 className="ext-card__name">{ext.name}</h4>
+        {ext.tagline && <p className="ext-card__desc">{ext.tagline}</p>}
         <p className="ext-card__desc">{ext.desc}</p>
+        {ext.tags && <ul className="app-card__stats" style={{ '--app-color': '#D97757' } as React.CSSProperties} aria-label={`${ext.name} skills`}>
+          {ext.tags.map(tag => <li key={tag} className="app-card__stat"><span className="app-card__stat-label">{tag}</span></li>)}
+        </ul>}
       </div>
     </li>
   )
@@ -81,12 +116,12 @@ function AppCard({ app }: { app: AppProject }) {
       className="app-card"
       style={{ ['--app-color' as string]: app.accentColor }}
     >
-      <div className="app-card__img-wrap">
+      <div className={`app-card__img-wrap${app.imageKind === 'logo' ? ' app-card__img-wrap--logo' : ''}`}>
         {app.imageSrc ? (
           <img
             className="app-card__img"
             src={app.imageSrc}
-            alt={`${app.name} screenshot`}
+            alt={`${app.name} ${app.imageKind === 'logo' ? 'logo' : 'screenshot'}`}
             loading="lazy"
             decoding="async"
           />
@@ -107,7 +142,7 @@ function AppCard({ app }: { app: AppProject }) {
         <ul className="app-card__stats" role="list">
           {app.stats.map((stat) => (
             <li key={stat.label} className="app-card__stat">
-              <span className="app-card__stat-value">{stat.value}</span>
+              {stat.value && <span className="app-card__stat-value">{stat.value}</span>}
               <span className="app-card__stat-label">{stat.label}</span>
             </li>
           ))}
@@ -148,9 +183,9 @@ export function AIStackSection() {
 
 export function AppsSection() {
   return (
-    <section className="projects projects--apps" aria-label="Apps and extensions" data-reveal>
+    <section className="projects projects--apps" aria-label="Tools in Action" data-reveal>
       <div className="projects__panel">
-        <span className="projects__ext-eyebrow">Your apps label</span>
+        <span className="projects__ext-eyebrow">Business &amp; Operations Tools</span>
         <ul className="projects__apps" role="list">
           {mobileApps.map((app) => (
             <AppCard key={app.name} app={app} />
@@ -159,7 +194,7 @@ export function AppsSection() {
 
         {/* Browser extensions - a compact companion block in the same section */}
         <div className="projects__ext">
-          <span className="projects__ext-eyebrow">Your extensions label</span>
+          <span className="projects__ext-eyebrow">AI &amp; Productivity</span>
           <ul className="ext-grid" role="list">
             {EXTENSIONS.map((ext) => (
               <ExtensionCard key={ext.name} ext={ext} />

@@ -1,0 +1,15 @@
+.workflow-carousel { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 24px; }
+.workflow-carousel__scene { --photo-width: clamp(150px, 23vw, 340px); --radius: clamp(210px, 33vw, 480px); width: 100%; height: min(60vh, 560px); display: grid; place-items: center; perspective: 1400px; overflow: hidden; }
+.workflow-carousel__ring { position: relative; width: var(--photo-width); height: min(42vh, 360px); transform-style: preserve-3d; animation: workflow-spin 50s linear infinite; }
+.workflow-carousel__scene:hover .workflow-carousel__ring, .workflow-carousel__scene:focus-within .workflow-carousel__ring { animation-play-state: paused !important; }
+.workflow-carousel__photo { position: absolute; inset: 0; padding: 8px; border: 1px solid #ffffff40; border-radius: 16px; background: #101b30; color: white; cursor: pointer; transform: rotateY(var(--angle)) translateZ(var(--radius)); backface-visibility: hidden; box-shadow: 0 15px 40px #0008; display: flex; flex-direction: column; gap: 8px; }
+.workflow-carousel__photo img { width: 100%; height: calc(100% - 32px); object-fit: contain; border-radius: 10px; background: #fff; }
+.workflow-carousel__photo span { font-size: 13px; }
+.workflow-carousel__photo:focus-visible { outline: 3px solid #ff7a1a; outline-offset: 4px; }
+.workflow-carousel__controls { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; color: #cbd5e1; font-size: 13px; }
+.workflow-carousel__controls button, .workflow-carousel__close { border: 1px solid #ffffff40; border-radius: 24px; padding: 10px 16px; background: #14213a; color: white; cursor: pointer; }
+.workflow-carousel__viewer { position: fixed; inset: 0; z-index: 30000; background: #050a14f5; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 72px 20px 24px; gap: 12px; color: white; }
+.workflow-carousel__viewer img { max-width: 95vw; max-height: 78vh; object-fit: contain; border-radius: 12px; }
+.workflow-carousel__close { position: absolute; top: 18px; right: 20px; }
+@keyframes workflow-spin { from { transform: rotateX(-7deg) rotateY(0deg); } to { transform: rotateX(-7deg) rotateY(-360deg); } }
+@media (prefers-reduced-motion: reduce) { .workflow-carousel__ring { animation: none; transform: none; width: 100%; height: auto; display: flex; gap: 16px; overflow-x: auto; } .workflow-carousel__scene { height: auto; perspective: none; } .workflow-carousel__photo { position: relative; inset: auto; transform: none; min-width: 240px; height: 320px; } }

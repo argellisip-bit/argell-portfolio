@@ -1,17 +1,13 @@
-import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { SealCheck } from '@/components/slab'
-import ThemeGlyph from './ThemeGlyph'
 import {
   HomeIcon,
   FolderIcon,
   StackIcon,
-  CupIcon,
   StarIcon,
   UserIcon,
   MessageIcon,
 } from './RailIcons'
-import { getTheme, toggleTheme, type Theme } from '@/lib/theme'
 import { profile } from '@/data/profile'
 
 /**
@@ -29,19 +25,12 @@ export const RAIL_LINKS = [
   { label: 'Home', to: '/', Icon: HomeIcon },
   { label: 'Projects', to: '/projects', Icon: FolderIcon },
   { label: 'Services', to: '/services', Icon: StackIcon },
-  { label: 'Showcase', to: '/showcase', Icon: CupIcon },
   { label: 'Testimonials', to: '/testimonials', Icon: StarIcon },
   { label: 'About', to: '/about', Icon: UserIcon },
   { label: 'FAQs / Contact', to: '/contact', Icon: MessageIcon },
 ] as const
 
 export default function Rail() {
-  const [theme, setThemeState] = useState<Theme>('light')
-
-  // The pre-paint script owns the real value; read it once mounted so the
-  // button shows the icon for the action, not for the current state.
-  useEffect(() => setThemeState(getTheme()), [])
-
   return (
     <aside className="rail" aria-label="Profile and site navigation">
       <div className="rail__inner">
@@ -59,7 +48,8 @@ export default function Rail() {
           <SealCheck size={19} weight="fill" aria-label={profile.verifiedLabel} />
         </h2>
         <p className="rail__handle">
-          {profile.handle}
+          <span>{profile.handle.split(' · ')[0]}</span>
+          <span>{profile.handle.split(' · ').slice(1).join(' · ')}</span>
         </p>
 
         <div className="rail__actions">
@@ -85,14 +75,6 @@ export default function Rail() {
             ))}
           </ul>
 
-          <button
-            type="button"
-            className="rail__theme"
-            onClick={(e) => setThemeState(toggleTheme(e.currentTarget))}
-            aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
-          >
-            <ThemeGlyph theme={theme} size={21} />
-          </button>
         </div>
 
         <nav className="rail__nav" aria-label="Sections">

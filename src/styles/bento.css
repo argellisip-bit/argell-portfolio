@@ -21,6 +21,8 @@
     grid-template-rows: repeat(2, minmax(0, 1fr));
   }
   .bento__card--projects { grid-column: span 2; }
+  .bento__card--about { grid-column: span 2; }
+  .bento__card--services { grid-column: span 2; }
   .bento__card--quotes   { grid-column: span 2; }
 }
 
@@ -175,6 +177,8 @@
 
 /* About: three photos fanned like a hand of cards. */
 .bento__fan { display: grid; place-items: center; }
+.bento__portrait { display: grid; place-items: center; min-height: 0; overflow: hidden; }
+.bento__portrait img { display: block; width: auto; height: 100%; max-width: 100%; min-height: 0; object-fit: contain; object-position: bottom center; border-radius: 16px; }
 .bento__photo {
   grid-area: 1 / 1;
   display: block;

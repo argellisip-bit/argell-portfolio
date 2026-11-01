@@ -14,12 +14,11 @@
   .sgrid .pgrid__lede { font-size: clamp(13px, 0.9vw, 16px); }
   .sgrid { height: auto; }
   .sgrid__glass { height: auto; grid-template-rows: auto auto auto; }
-  .sgrid__flow-main { height: clamp(380px, 50vh, 540px); }
 }
 /* The bands need more air than the Home sheet's default gap - each one is
    its own object (a dark plate, a card row, a window) and at the default
    spacing they read as one stack. */
-.sgrid__glass { min-height: 0; gap: clamp(26px, 3.6vh, 48px); }
+.sgrid__glass { min-height: 0; gap: clamp(22px, 3vh, 36px); }
 .sgrid__stages, .sgrid__stage-chips, .sgrid__services, .sgrid__bullets { list-style: none; margin: 0; padding-left: 0; }
 
 /* ---------- The method ---------- */
@@ -287,6 +286,8 @@
   gap: clamp(12px, 1.6vh, 18px);
   min-height: 0;
   min-width: 0;
+  padding: clamp(18px, 2.4vh, 28px) 12px;
+  border-top: 1px solid var(--line);
 }
 /* Centred, with the tool chips on their own row underneath - the earlier
    copy-left / chips-right split made the band read as two unrelated things. */
@@ -344,6 +345,8 @@
   box-shadow: inset 0 0 0 1px var(--line);
 }
 .sgrid__flow-tool svg { color: var(--orange); }
+.sgrid__flow-tool-logo { object-fit: contain; }
+.sgrid__flow-tool-logo[src$='openai.svg'] { filter: brightness(0) invert(1); }
 
 /* ---------- Below the shell ---------- */
 @media (max-width: 1099px) {

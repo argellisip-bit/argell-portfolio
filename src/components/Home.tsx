@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom'
-import { ArrowUpRight } from '@/components/slab'
 import { profile } from '@/data/profile'
 import ToolsMarquee from './ToolsMarquee'
 import HomeBento from './HomeBento'
@@ -44,12 +42,6 @@ export default function Home() {
             </span>
           </h1>
 
-          {!phone && (
-            <Link className="home__cta" to="/contact">
-              Get in touch
-              <ArrowUpRight size={16} weight="bold" aria-hidden="true" />
-            </Link>
-          )}
         </div>
 
         <p className="home__lede">{hero.body}</p>
@@ -62,8 +54,7 @@ export default function Home() {
       <div className="home__glass home__glass--tools">
         <div className="home__tools">
           <div className="home__tools-head">
-            <span className="home__tools-eyebrow">Daily drivers</span>
-            <h2 className="home__tools-label">Tools I work with</h2>
+            <h2 className="home__tools-label">MY TOOL KIT</h2>
           </div>
           <ToolsMarquee />
         </div>
