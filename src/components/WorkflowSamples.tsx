@@ -46,13 +46,15 @@ export default function WorkflowSamples({ samples = annualReportSamples, caption
     if (!active) return
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') { e.stopImmediatePropagation(); close() }
+      if (e.key === 'Tab') { e.preventDefault(); closeRef.current?.focus() }
     }
     document.addEventListener('keydown', onKey, true)
+    const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
     requestAnimationFrame(() => closeRef.current?.focus())
     return () => {
       document.removeEventListener('keydown', onKey, true)
-      document.body.style.overflow = ''
+      document.body.style.overflow = previousOverflow
     }
   }, [active, close])
 

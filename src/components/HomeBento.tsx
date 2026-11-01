@@ -1,3 +1,5 @@
+import { services } from '@/data/services'
+import { whyWorkWithMe as CLIENTS } from '@/data/why-work-with-me'
 import type React from 'react'
 import { Link } from 'react-router-dom'
 import {
@@ -27,19 +29,10 @@ import { annualReportSamples } from '@/data/annual-report'
 
 const PROJECT_SHOTS = annualReportSamples
 
-const OFFERS = [
-  { Icon: FunnelSimple, title: 'Executive & Administrative Support' },
-  { Icon: Gear, title: 'Operations & Project Support' },
-  { Icon: AddressBook, title: 'Client & Customer Support' },
-  { Icon: Globe, title: 'QuickBooks & Finance Support' },
-  { Icon: AppWindow, title: 'Research, Reports & Documentation' },
-] as const
+const serviceIcons = [FunnelSimple, Gear, AddressBook, Globe, AppWindow]
+const OFFERS = services.map((service, index) => ({ Icon: serviceIcons[index], title: service.title }))
 
-const CLIENTS = [
-  { name: '01 — Reliable & Proactive', role: 'I stay on top of tasks, deadlines, and follow-ups.', work: 'Reliable · Proactive · Consistent', logo: '/icons/calendar-check.svg' },
-  { name: '02 — Clear Communication', role: 'Professional communication across clients, teams, email, chat, and day-to-day operations.', work: 'Responsive · Clear · Professional', logo: '/icons/support-headset.svg' },
-  { name: '03 — Organized Support', role: 'I bring structure to workflows, documentation, research, and recurring responsibilities.', work: 'Organized · Detail-Oriented · Flexible', logo: '/icons/operations-project-support.svg' },
-]
+
 
 
 

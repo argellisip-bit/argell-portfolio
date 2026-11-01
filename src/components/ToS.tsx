@@ -1,3 +1,4 @@
+import { useIsPhone } from '@/hooks/useMediaQuery'
 import { ArrowLeft } from '@/components/slab'
 import { useNavigate } from 'react-router-dom'
 import { profile } from '@/data/profile'
@@ -8,6 +9,7 @@ import { profile } from '@/data/profile'
  */
 export default function ToS() {
   const navigate = useNavigate()
+  const phone = useIsPhone()
 
   return (
     <main className="legal-page" aria-label="Terms of Service">
@@ -22,20 +24,20 @@ export default function ToS() {
         </button>
 
         <h1 className="legal-page__title">Terms of Service</h1>
-        <p className="legal-page__updated">Last updated: PLACEHOLDER date</p>
+        <p className="legal-page__updated">{phone ? 'Contact Argell for further details.' : 'Last updated: PLACEHOLDER date'}</p>
 
         <div className="legal-page__body">
           <h2>Using this site</h2>
-          <p>PLACEHOLDER - tell me what to put here: the basic terms for visiting this site.</p>
+          <p>{phone ? 'This portfolio describes remote executive, operations, administrative, and business-support services.' : 'PLACEHOLDER - tell me what to put here: the basic terms for visiting this site.'}</p>
 
           <h2>Work and payment</h2>
-          <p>PLACEHOLDER - tell me what to put here: how projects are scoped, billed and delivered.</p>
+          <p>{phone ? 'Contact Argell to discuss project scope, timing, rates, and delivery arrangements before starting work.' : 'PLACEHOLDER - tell me what to put here: how projects are scoped, billed and delivered.'}</p>
 
           <h2>Ownership</h2>
-          <p>PLACEHOLDER - tell me what to put here: who owns the work and the content on this site.</p>
+          <p>{phone ? 'For questions about using portfolio materials or project deliverables, contact Argell.' : 'PLACEHOLDER - tell me what to put here: who owns the work and the content on this site.'}</p>
 
           <h2>Liability</h2>
-          <p>PLACEHOLDER - tell me what to put here: your limits of liability.</p>
+          <p>{phone ? 'For questions about project responsibilities and service terms, email argell.isip@gmail.com.' : 'PLACEHOLDER - tell me what to put here: your limits of liability.'}</p>
 
           <h2>Contact</h2>
           <p>

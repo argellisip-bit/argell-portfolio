@@ -51,14 +51,14 @@ export const profile: Profile = {
   handle: 'Executive Virtual Assistant · Operations · Client Support',
   role: 'Executive Virtual Assistant · Operations · Client Support',
   avatarSrc: '/ArgellPNG.png',
-  verifiedLabel: 'PLACEHOLDER - what the tick means (e.g. a certification)',
+  verifiedLabel: 'Argell Nicolo Isip',
   email: 'argell.isip@gmail.com',
-  location: 'PLACEHOLDER - your city or timezone',
+  location: 'Philippines · Remote',
   // Pick any icon from https://phosphoricons.com and import it above.
   stats: [
-    { value: '0 yrs', label: 'PLACEHOLDER', Icon: Briefcase },
-    { value: '#000', label: 'PLACEHOLDER', Icon: SealCheck },
-    { value: 'GMT+0', label: 'PLACEHOLDER', Icon: Clock },
+    { value: '5+ YRS', label: 'EXPERIENCE', Icon: Briefcase },
+    { value: 'MULTI', label: 'INDUSTRY', Icon: SealCheck },
+    { value: 'REMOTE', label: 'SUPPORT', Icon: Clock },
   ],
   // The intro types this line, then flies it into the Home headline.
   // Keep it short: two halves, 5-8 words total.

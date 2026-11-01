@@ -7,6 +7,7 @@ import { AutomationsPanel, PlanPanel, TicketingPanel, FrameworkPanel, WorkflowPa
 import { systemsWorkflowSamples } from '@/data/systems-workflows'
 import { mobileApps } from '@/data/projects'
 import { useIsPhone } from '@/hooks/useMediaQuery'
+import { useSearchParams } from 'react-router-dom'
 
 /**
  * Projects, as one viewport in Home's bento language: a glass panel of six
@@ -164,13 +165,22 @@ function ProjectModal({ project, onClose, children }: { project: Project; onClos
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
+      if (e.key === 'Tab') {
+        const dialog = closeRef.current?.closest('.pmodal')
+        const items = dialog?.querySelectorAll<HTMLElement>('button:not([disabled]), a[href], input, textarea, select, [tabindex="0"]')
+        if (!items?.length) return
+        const first = items[0], last = items[items.length - 1]
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
+      }
     }
     document.addEventListener('keydown', onKey)
+    const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
     requestAnimationFrame(() => closeRef.current?.focus())
     return () => {
       document.removeEventListener('keydown', onKey)
-      document.body.style.overflow = ''
+      document.body.style.overflow = previousOverflow
     }
   }, [onClose])
 
@@ -198,6 +208,23 @@ function ProjectModal({ project, onClose, children }: { project: Project; onClos
 export default function ProjectsGrid() {
   const [open, setOpen] = useState<Project | null>(null)
   const phone = useIsPhone()
+  const [searchParams, setSearchParams] = useSearchParams()
+  useEffect(() => {
+    if (searchParams.get('toolkit') === '1') {
+      setOpen(PROJECTS.find(project => project.id === 'apps') ?? null)
+      setSearchParams({}, { replace: true })
+    }
+  }, [searchParams, setSearchParams])
+  const mobileDescription = (p: Project) => {
+    if (!phone) return p.desc
+    const descriptions: Record<string, string> = {
+      workflows: 'Annual reports, business presentations, and visual reporting.',
+      framework: 'Multichannel customer service, issue resolution, and operations support.',
+      workflow: 'QuickBooks bookkeeping, invoicing, reconciliation, and financial organization.',
+      apps: 'Business, operations, and AI tools used in day-to-day work.',
+    }
+    return descriptions[p.id] ?? p.desc
+  }
   const [cat, setCat] = useState<Cat | 'all'>('all')
   const keep = (p: Project) => !phone || cat === 'all' || p.cat === cat
   const projects = PROJECTS.filter(keep)
@@ -244,7 +271,7 @@ export default function ProjectsGrid() {
 
               <span className="bento__build-title">{b.title}</span>
 
-              <span className="bento__build-desc">{b.desc}</span>
+              <span className="bento__build-desc">{mobileDescription(b)}</span>
 
             </span>
 
@@ -307,7 +334,7 @@ export default function ProjectsGrid() {
               <span className="bento__head">
                 <Marks p={p} />
                 <span className="bento__title">{p.title}</span>
-                <span className="bento__desc">{p.desc}</span>
+                <span className="bento__desc">{mobileDescription(p)}</span>
                 <ArrowUpRight size={15} weight="bold" aria-hidden="true" className="bento__arrow" />
               </span>
               <p.Preview />

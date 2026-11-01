@@ -152,9 +152,12 @@ export default function TabBar() {
             {/* Outline at rest, filled when selected - the iOS tab convention. */}
             {({ isActive }) =>
               primary ? (
+                <>
                 <span className="tabbar__fab">
                   <Icon size={24} weight="bold" aria-hidden="true" />
                 </span>
+                <span className="tabbar__label">{label}</span>
+                </>
               ) : (
                 <>
                   <Icon size={22} weight={isActive ? 'fill' : 'regular'} aria-hidden="true" />

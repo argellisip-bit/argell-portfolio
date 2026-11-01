@@ -1,3 +1,5 @@
+import { services as SERVICES } from '@/data/services'
+import { useIsPhone } from '@/hooks/useMediaQuery'
 import type { CSSProperties } from 'react'
 import { MagnetStraight, Timer, Trophy, CheckCircle } from '@/components/slab'
 import type { Icon } from '@/components/slab'
@@ -53,59 +55,6 @@ const STAGES: Stage[] = [
 /* ---------- The services ---------- */
 
 
-type Service = {
-  index: string
-  title: string
-  description: string
-  chip: string
-  logos: string[]
-  bullets: string[]
-}
-
-
-const SERVICES: Service[] = [
-  {
-    index: '01',
-    title: 'Executive & Administrative Support',
-    description: 'Reliable day-to-day support for busy professionals and growing teams.',
-    chip: '',
-    logos: ['/icons/administrative-support.svg'],
-    bullets: ['Email & calendar management', 'Research & documentation', 'Scheduling & follow-ups'],
-  },
-  {
-    index: '02',
-    title: 'Operations & Project Support',
-    description: 'Keep projects, deadlines, and recurring workflows organized and visible.',
-    chip: '',
-    logos: ['/icons/operations-project-support.svg'],
-    bullets: ['Task & deadline tracking', 'Workflow organization', 'Progress reporting'],
-  },
-  {
-    index: '03',
-    title: 'Client & Customer Support',
-    description: 'Professional multichannel support backed by years of BPO experience.',
-    chip: '',
-    logos: ['/icons/support-headset.svg'],
-    bullets: ['Email, chat & phone support', 'Issue resolution & escalation', 'Customer experience support'],
-  },
-  {
-    index: '04',
-    title: 'QuickBooks & Finance Support',
-    description: 'Practical bookkeeping and financial administration for day-to-day business needs.',
-    chip: '',
-    logos: ['/icons/quickbooks.svg'],
-    bullets: ['Invoicing & expense tracking', 'Reconciliation', 'AR / AP support'],
-  },
-  {
-    index: '05',
-    title: 'Research, Reports & Documentation',
-    description: 'Turn scattered information into organized, usable business outputs.',
-    chip: '',
-    logos: ['/icons/report-document.svg'],
-    bullets: ['Web & media research', 'Reports & summaries', 'Documentation & content organization'],
-  },
-]
-
 /** The tool marks, stacked horizontally on white tiles (same as Projects). */
 function Marks({ logos }: { logos: string[] }) {
   return (
@@ -122,6 +71,7 @@ function Marks({ logos }: { logos: string[] }) {
 /* ---------- The page ---------- */
 
 export default function ServicesGrid() {
+  const phone = useIsPhone()
   return (
     <section className="pgrid sgrid" aria-labelledby="services-title">
       <header className="pgrid__head">
@@ -175,7 +125,7 @@ export default function ServicesGrid() {
         <div className="sgrid__offers">
           <div className="sgrid__offers-head">
             <h2 className="sgrid__offers-title">Your services, listed.</h2>
-            <p className="sgrid__offers-sub">PLACEHOLDER - one short nudge.</p>
+            <p className="sgrid__offers-sub">{phone ? 'Flexible support for your business.' : 'PLACEHOLDER - one short nudge.'}</p>
           </div>
           <ul className="bento sgrid__services" role="list">
             {SERVICES.map((s) => (

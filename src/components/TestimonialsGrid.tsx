@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Play, Gauge, Robot, Code } from '@/components/slab'
 import type { Icon } from '@/components/slab'
+import { useIsPhone } from '@/hooks/useMediaQuery'
+import { whyWorkWithMe } from '@/data/why-work-with-me'
 
 /**
  * TestimonialsGrid - the Testimonials view as a fixed viewport.
@@ -40,16 +42,6 @@ const CLIPS: Clip[] = [
     poster: '',
     duration: '0:30',
     kicker: 'Portfolio introduction',
-    width: 720,
-    height: 1080,
-  },
-  {
-    id: 'clip-2',
-    index: '02',
-    src: '',
-    poster: '/placeholders/testimonial-2.jpg',
-    duration: '0:00',
-    kicker: 'Client testimonial',
     width: 720,
     height: 1080,
   },
@@ -102,6 +94,11 @@ const CLIENTS: Client[] = [
 ]
 
 export default function TestimonialsGrid() {
+  const phone = useIsPhone()
+  const clients: Client[] = phone ? whyWorkWithMe.map((item, i) => ({
+    index: String(i + 1).padStart(2, '0'), name: item.name, role: '', daily: item.role,
+    work: item.work.split(' · '), logoSrc: item.logo, Icon: Gauge,
+  })) : CLIENTS
   const active = 0
   // The stage shows the clip's poster as cover art until it is asked to
   // play. A poster can fill the frame edge to edge whichever way the clip is
@@ -173,7 +170,7 @@ export default function TestimonialsGrid() {
                   <span className="tgrid__cover-sub">
                     {hasVideo
                       ? `${clip.duration} · Tap to play`
-                      : 'PLACEHOLDER - add your video to public/testimonials/'}
+                      : 'Portfolio introduction'}
                   </span>
                 </span>
               </button>
@@ -191,7 +188,7 @@ export default function TestimonialsGrid() {
               carrying their own border read as three separate widgets; a
               single ledger reads as one record. */}
           <ul className="tgrid__clients" role="list">
-            {CLIENTS.map((c) => {
+            {clients.map((c) => {
               const FallbackIcon = c.Icon
               return (
                 <li key={c.index} className="tgrid__client">
@@ -207,7 +204,7 @@ export default function TestimonialsGrid() {
                   <span className="tgrid__client-body">
                     <span className="tgrid__client-head">
                       <span className="tgrid__client-name">{c.name}</span>
-                      <span className="tgrid__client-role">{c.role}</span>
+                      {c.role && <span className="tgrid__client-role">{c.role}</span>}
                     </span>
                     <span className="tgrid__client-daily">{c.daily}</span>
                     <ul className="tgrid__client-tags" role="list">
