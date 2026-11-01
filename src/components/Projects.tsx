@@ -78,10 +78,6 @@ function ExtensionCard({ ext }: { ext: Extension }) {
             <span className="ext-card__dot" />
             <span className="ext-card__dot" />
           </span>
-          <span className="ext-card__urlbar">
-            <ExtIcon size={12} weight="bold" />
-            chrome-extension
-          </span>
         </div>
         <div className={`ext-card__stage${ext.imageKind === 'logo' ? ' ext-card__stage--logo' : ''}`}>
           <img

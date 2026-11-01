@@ -369,6 +369,7 @@
 .ppanel__tab[aria-selected='true'] { background: var(--navy); color: var(--cream); border-color: var(--navy); }
 
 .ppanel__bar {
+  min-height: 49px;
   display: flex;
   align-items: center;
   gap: 12px;

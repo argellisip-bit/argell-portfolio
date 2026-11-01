@@ -87,30 +87,26 @@ export function AppsWindow() {
 export function PlanPanel() {
   return (
     <div className="ppanel ppanel--frame">
-      <FrameBar
-        host="yourdomain.com"
-        path="/sample-plan"
-      />
+      <FrameBar />
       <LiveFrame src="/placeholders/sample-plan.html" title="Sample document" />
     </div>
   )
 }
 
-/** `src` is a local page framed in the panel; `path` is what the fake
- *  address bar shows. Point these at your own pages. */
-type Build = { id: string; label: string; src: string; path: string; Icon: Icon }
+/** Local pages framed in the shared browser-style panel. */
+type Build = { id: string; label: string; src: string; Icon: Icon }
 
 const BUILDS: Build[] = [
-  { id: 'ticketing', label: 'Media Research & Coverage Tracking', src: '/media-research.html', path: '/media-research', Icon: Ticket },
-  { id: 'framework', label: 'CUSTOMER EXPERIENCE · BPO OPERATIONS', src: '/client-support.html', path: '/client-support', Icon: Robot },
-  { id: 'workflow', label: 'QuickBooks & Financial Operations Support', src: '/finance-support.html', path: '/finance-support', Icon: FlowArrow },
+  { id: 'ticketing', label: 'Media Research & Coverage Tracking', src: '/media-research.html', Icon: Ticket },
+  { id: 'framework', label: 'CUSTOMER EXPERIENCE · BPO OPERATIONS', src: '/client-support.html', Icon: Robot },
+  { id: 'workflow', label: 'QuickBooks & Financial Operations Support', src: '/finance-support.html', Icon: FlowArrow },
 ]
 
 /** One build, framed, open on arrival. */
 function BuildPanel({ build }: { build: Build }) {
   return (
     <div className="ppanel ppanel--frame">
-      <FrameBar host="yourdomain.com" path={build.path} />
+      <FrameBar />
       <LiveFrame src={build.src} title={build.label} />
     </div>
   )
@@ -119,17 +115,13 @@ export const TicketingPanel = () => <BuildPanel build={BUILDS[0]} />
 export const FrameworkPanel = () => <BuildPanel build={BUILDS[1]} />
 export const WorkflowPanel = () => <BuildPanel build={BUILDS[2]} />
 
-function FrameBar({ host, path }: { host: string; path: string }) {
+function FrameBar() {
   return (
     <div className="ppanel__bar">
       <span className="ppanel__dots" aria-hidden="true">
         <i />
         <i />
         <i />
-      </span>
-      <span className="ppanel__url">
-        <span className="ppanel__url-host">{host}</span>
-        <span className="ppanel__url-path">{path}</span>
       </span>
     </div>
   )

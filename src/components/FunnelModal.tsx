@@ -67,10 +67,6 @@ export function useFunnelModal() {
               <span className="funnels__modal-light funnels__modal-light--amber" />
               <span className="funnels__modal-light funnels__modal-light--green" />
             </div>
-            <div className="funnels__modal-url" aria-hidden="true">
-              <span className="funnels__modal-url-scheme">yoursite.com</span>
-              <span className="funnels__modal-url-path">{fullSrc(funnel)}</span>
-            </div>
             <div className="funnels__modal-actions">
               <button
                 ref={closeRef}

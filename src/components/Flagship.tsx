@@ -812,10 +812,6 @@ export default function Flagship({ eyebrow = '12 / Flagship build' }: FlagshipPr
             <span className="flagship__dot flagship__dot--red" />
             <span className="flagship__dot flagship__dot--amber" />
             <span className="flagship__dot flagship__dot--green" />
-            <span className="flagship__device-url">
-              <span className="flagship__device-url-host">example.com</span>
-              <span className="flagship__device-url-path">{current.path}</span>
-            </span>
           </div>
           <div className="flagship__device-screen">
             {/* Re-keyed on tab change so the stage remounts and replays the

@@ -1364,6 +1364,7 @@
 }
 
 .funnels__modal-actions {
+  margin-left: auto;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -2066,6 +2067,7 @@
 }
 /* Chrome bar: traffic-light dots + a faux address pill. */
 .ext-card__chrome {
+  min-height: 49px;
   display: flex;
   align-items: center;
   gap: 12px;
